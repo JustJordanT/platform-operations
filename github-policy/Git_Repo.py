@@ -1,29 +1,28 @@
-# import github
 import requests
+import json
 import pprint
-# from secrets import GITHUB_TOKEN
-import urllib3
-import urlopen
 from secrets import TOKEN
 
-# token = "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"
-# API_URL = "https://api.github.com"
-# payload = '{"name": "justjordant"}'
-# # headers = {
-# #     "Accept": "application/vnd.github.v3+json",
-# #     "Authorization": "token" + GITHUB_TOKEN
-# # }
-#
-# headers = {'Authorization': 'token ' + token}
-#
-# login = requests.get('https://api.github.com/', 'justjordant/', headers=headers)
-# print(login.json())
+#VARS
+USER = 'justjordant'
+BASE_URL = "https://api.github.com/"
+REPO_URL = f"https://api.github.com/repos/{USER}/JordanBlogSite"
+REPOS_URL = f"{BASE_URL}users/{USER}/repos?per_page=100"
 
 
-url = "https://api.github.com/users/justjordant/repos"
-TOKEN = "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"
+headers = {
+    'Accept': 'token' + TOKEN,
+    'Authorization': 'token %s' % TOKEN
+    }
 
-request = Request(url)
-request.add_header('Authorization', 'token %s' % TOKEN)
-response = urlopen(request)
-print(response.read())
+repo_info = requests.get(REPOS_URL, headers=headers)
+r_dict = repo_info.json()
+
+# parsed = json.loads(repo_info)
+
+
+with open('data.json', 'w') as f:
+    json.dump(repo_info, f)
+
+# pprint.pprint(repo_info)
+# print(r_dict)
