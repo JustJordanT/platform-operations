@@ -10,13 +10,20 @@ BASE_URL = "https://api.github.com/"
 REPOS_URL = f"{BASE_URL}repos/{USER}/MIXcms"
 
 
+jada = {
+    "name": "mix12345",
+    "has_wiki": False,
+    "has_projects": False,
+    "has_issues": False
+}
+
+
 headers = {
     'Accept': 'token' + TOKEN,
     'Authorization': 'token %s' % TOKEN,
-    'name': 'name' + "mix213"
     }
 
-repo_info = requests.patch(REPOS_URL, headers=headers, json={"name": "mix123"})
+repo_info = requests.patch(REPOS_URL, headers=headers, json=jada)
 r = repo_info.json()
 
 # parsed = json.loads(repo_info)
