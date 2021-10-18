@@ -12,10 +12,10 @@ def patch_repo(repo_name):
     REPOS_URL = f"{BASE_URL}repos/{USER}/{repo_name}"
 
     jada = {
-        "name": "mix1234567",
-        "has_wiki": True,
-        "has_projects": False,
-        "has_issues": False
+        # "name": {,
+        "has_wiki": False,
+        # "has_projects": False,
+        # "has_issues": False
     }
 
     headers = {
@@ -30,6 +30,4 @@ def patch_repo(repo_name):
 
     # pprint.pprint(repo_info)
     pprint.pprint(r)
-    
-patch_repo("mix123456")
-    
+patch_repo('platform-operations\n')

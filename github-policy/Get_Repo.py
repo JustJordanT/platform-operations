@@ -7,8 +7,8 @@ from secrets import TOKEN
 USER = 'justjordant'
 BASE_URL = "https://api.github.com/"
 REPO_URL = f"https://api.github.com/repos/{USER}/JordanBlogSite"
-REPOS_URL = f"{BASE_URL}users/{USER}/repos?per_page=100"
-
+# REPOS_URL = f"{BASE_URL}users/{USER}/repos?per_page=100"
+REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
 headers = {
     'Accept': 'token' + TOKEN,
