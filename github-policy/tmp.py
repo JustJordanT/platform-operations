@@ -11,8 +11,8 @@ REPOS_URL = f"{BASE_URL}repos/{USER}/MIXcms"
 
 
 jada = {
-    "name": "mix12345",
-    "has_wiki": False,
+    "name": "mix123456",
+    "has_wiki": True,
     "has_projects": False,
     "has_issues": False
 }
