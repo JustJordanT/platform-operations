@@ -12,6 +12,7 @@ BASE_URL = "https://api.github.com/"
 REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
 load_dotenv()
+print(os.environ.get("PYTHON_TOKEN"))
 TOKEN = os.environ.get("PYTHON_TOKEN")
 
 # Passing PATCH data into API calls
