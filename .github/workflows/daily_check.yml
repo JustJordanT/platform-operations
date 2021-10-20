@@ -13,3 +13,5 @@ jobs:
         run: |
           cd github-policy
           python main.py
+        env:
+          TOKEN: ${{ secrets.PYTHON_TOKEN }}
