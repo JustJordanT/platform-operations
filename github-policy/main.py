@@ -24,8 +24,8 @@ TOKEN = os.environ.get("PYTHON_TOKEN")
 
 
 headers = {
-    'Accept': 'token' + TOKEN,
-    'Authorization': 'token %s' % TOKEN,
+    'Accept': 'token' + str(TOKEN),
+    'Authorization': 'token %s' % str(TOKEN),
 }
 
 repo_info = requests.get(REPOS_URL, headers=headers)
