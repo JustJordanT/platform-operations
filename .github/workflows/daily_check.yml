@@ -15,3 +15,4 @@ jobs:
           python main.py
         env:
           TOKEN: ${{ secrets.PYTHON_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
