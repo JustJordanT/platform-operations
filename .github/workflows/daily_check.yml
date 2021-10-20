@@ -14,5 +14,6 @@ jobs:
           TOKEN: ${{ secrets.PYTHON_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          pip install -r requirements.txt
           cd github-policy
           python main.py
