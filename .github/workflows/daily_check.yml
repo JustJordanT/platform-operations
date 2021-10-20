@@ -9,17 +9,16 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Make Directory
-        run:  |
-          cd github-policy
-          mkdir reports
-          echo 'COMPLETED'
+#      - name: Make Directory
+#        run:  |
+#          cd github-policy
+#          mkdir reports
+#          echo 'COMPLETED'
 
       - name: Pip Install
         run: |
           cd github-policy
           pip install -r requirements.txt
-          echo 'COMPLETED'
 
       - name: Run Script
         env:
@@ -29,10 +28,9 @@ jobs:
           cd github-policy
           python main.py > reports.txt
           cat reports.txt
-          echo 'COMPLETED'
 
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: repo-report
-#          path: reports
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: repo-report
+          path: github-policy
