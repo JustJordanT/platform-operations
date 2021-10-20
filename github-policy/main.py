@@ -35,14 +35,14 @@ r_dict = repo_info.json()
 
 def check_wiki ():
     for repo in r_dict:
-        try:
+        # try:
             if repo.get('has_wiki'):
                 # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
                 print('[', repo.get('name'), ']', 'Has wiki feature enabled')
                 # print('This is true')
-        except AttributeError:
+        # except AttributeError:
             # counters is not a dictionary, ignore and move on
-            pass
+            # pass
 
 
 # def check_issues ():
