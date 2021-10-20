@@ -1,16 +1,52 @@
 import json
 import requests
-from Patch_Repo import patch_repo
+import pprint
+from secrets import TOKEN
 
-repo_file = open("repos.json")
-
-List = []
-
-for repo in repo_file:
-    # [List.strip() for i in List] //TODO Look into this list comp and see if this is something that we can use istead of the append method.
-    List.append(repo.replace("\n", ""))
-    # patch_repo(List)
+# VARS
+USER = 'justjordant'
+BASE_URL = "https://api.github.com/"
+REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
 
-for x in List:
-    patch_repo(x)
+# Passing PATCH data into API calls
+# data = {
+#     "name": "mix123456",
+#     "has_wiki": True,x
+#     "has_projects": False,
+#     "has_issues": False
+# }
+
+
+headers = {
+    'Accept': 'token' + TOKEN,
+    'Authorization': 'token %s' % TOKEN,
+}
+
+repo_info = requests.get(REPOS_URL, headers=headers)
+r_dict = repo_info.json()
+
+
+def check_wiki ():
+    for repo in r_dict:
+        if repo.get('has_wiki'):
+            # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
+            print('[', repo.get('name'), ']', 'Has wiki feature enabled')
+            # print('This is true')
+
+
+def check_issues ():
+    for repo in r_dict:
+        if repo.get('has_issues'):
+            print('[', repo.get('name'), ']', 'Has issues feature enabled')
+
+
+def check_project ():
+    for repo in r_dict:
+        if repo.get('has_projects'):
+            print('[', repo.get('name'), ']', 'Has issues feature enabled')
+
+
+check_issues()
+
+check_wiki()

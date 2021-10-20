@@ -1,0 +1,11 @@
+name: Build
+
+on: push
+
+jobs:
+  release:
+    name: Build & Run
+    runs-on: ubuntu-latest
+    steps:
+      - use: actions/checkout@v1
+        run: python main.py
