@@ -25,7 +25,7 @@ TOKEN = os.environ.get("PYTHON_TOKEN")
 
 
 headers = {
-    'Accept': 'token' + TOKEN,
+    'Accept': 'token' + str(TOKEN),
     'Authorization': 'token %s' % TOKEN,
 }
 
