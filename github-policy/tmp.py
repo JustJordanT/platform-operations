@@ -18,36 +18,36 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 # }
 
 
-headers = {
-    'Accept': 'token' + TOKEN,
-    'Authorization': 'token %s' % TOKEN,
-}
-
-repo_info = requests.get(REPOS_URL, headers=headers)
-r_dict = repo_info.json()
-
-
-# parsed = json.loads(repo_info)
-
-
-def check_wiki ():
-    for repo in r_dict:
-        if repo.get('has_wiki'):
-            # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
-            print('[', repo.get('name'), ']', 'Has wiki feature enabled')
-            # print('This is true')
-
-
-def check_issues ():
-    for repo in r_dict:
-        if repo.get('has_issues'):
-            print('[', repo.get('name'), ']', 'Has issues feature enabled')
-
-
-def check_project ():
-    for repo in r_dict:
-        if repo.get('has_projects'):
-            print('[', repo.get('name'), ']', 'Has issues feature enabled')
+# headers = {
+#     'Accept': 'token' + TOKEN,
+#     'Authorization': 'token %s' % TOKEN,
+# }
+#
+# repo_info = requests.get(REPOS_URL, headers=headers)
+# r_dict = repo_info.json()
+#
+#
+# # parsed = json.loads(repo_info)
+#
+#
+# def check_wiki ():
+#     for repo in r_dict:
+#         if repo.get('has_wiki'):
+#             # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
+#             print('[', repo.get('name'), ']', 'Has wiki feature enabled')
+#             # print('This is true')
+#
+#
+# def check_issues ():
+#     for repo in r_dict:
+#         if repo.get('has_issues'):
+#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
+#
+#
+# def check_project ():
+#     for repo in r_dict:
+#         if repo.get('has_projects'):
+#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
 
 
 # pprint.pprint(repo_info)
