@@ -1,13 +1,18 @@
 import json
 import requests
+import os
 import pprint
 # from secrets import TOKEN
+from dotenv import load_dotenv
+
 
 # VARS
 USER = 'justjordant'
 BASE_URL = "https://api.github.com/"
 REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
+load_dotenv()
+TOKEN = os.environ.get("PYTHON_TOKEN")
 
 # Passing PATCH data into API calls
 # data = {

@@ -10,9 +10,9 @@ jobs:
       - uses: actions/checkout@v1
 
       - name: Run Script
-        run: |
-          cd github-policy
-          python main.py
         env:
           TOKEN: ${{ secrets.PYTHON_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd github-policy
+          python main.py
