@@ -11,6 +11,7 @@ jobs:
 
       - name: Make Directory
         run:  |
+          cd github-policy
           mkdir reports
           echo 'COMPLETED'
 
