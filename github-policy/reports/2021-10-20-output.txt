@@ -1,2 +1,0 @@
-[ mix123456 ] Has wiki feature enabled
-[ platform-operations ] Has wiki feature enabled
