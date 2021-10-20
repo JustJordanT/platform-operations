@@ -27,11 +27,12 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd github-policy
-          python main.py
+          python main.py > reports.txt
+          cat reports.txt
           echo 'COMPLETED'
 
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v2
-        with:
-          name: repo-report
-          path: reports
+#      - name: Upload Artifact
+#        uses: actions/upload-artifact@v2
+#        with:
+#          name: repo-report
+#          path: reports
