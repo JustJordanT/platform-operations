@@ -3,7 +3,7 @@ import requests
 import os
 import pprint
 # from secrets import TOKEN
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 
 # VARS
