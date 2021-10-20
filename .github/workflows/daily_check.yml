@@ -9,11 +9,15 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
+      - name: Pip Install
+        run: |
+          cd github-policy
+          pip install -r requirements.txt
+
       - name: Run Script
         env:
           TOKEN: ${{ secrets.PYTHON_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd github-policy
-          pip install -r requirements.txt
           python main.py
