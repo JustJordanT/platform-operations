@@ -36,7 +36,7 @@ r_dict = repo_info.json()
 def check_wiki ():
     for repo in r_dict:
         # try:
-            if repo.get('has_wiki'):
+            if repo.get("has_wiki"):
                 # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
                 print('[', repo.get('name'), ']', 'Has wiki feature enabled')
                 # print('This is true')
