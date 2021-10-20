@@ -1,7 +1,7 @@
 import json
 import requests
 import pprint
-from secrets import TOKEN
+# from secrets import TOKEN
 
 # VARS
 USER = 'justjordant'
