@@ -25,11 +25,12 @@ jobs:
           TOKEN: ${{ secrets.PYTHON_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          cd github-policy
-          python main.py > reports/`date +%F`-output.log
+          cd github-policy/reports
+          python github-policy/main.py > `date +%F`-output.log
 
-#      - name: Upload Artifact
-#        uses: actions/upload-artifact@v2
-#        with:
-#          name: repo-report
-#          path: github-policy
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: repo-report
+          path: github-policy
