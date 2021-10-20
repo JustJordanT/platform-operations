@@ -31,10 +31,9 @@ headers = {
 
 repo_info = requests.get(REPOS_URL, headers=headers)
 r_dict = repo_info.json()
-split_data = r_dict.split()
 
 def check_wiki ():
-    for repo in split_data:
+    for repo in r_dict:
         # try:
 
             if repo.get("has_wiki"):
