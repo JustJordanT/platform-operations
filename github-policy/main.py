@@ -31,11 +31,12 @@ headers = {
 
 repo_info = requests.get(REPOS_URL, headers=headers)
 r_dict = repo_info.json()
-
+split_data = r_dict.split()
 
 def check_wiki ():
-    for repo in r_dict:
+    for repo in split_data:
         # try:
+
             if repo.get("has_wiki"):
                 # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
                 print('[', repo.get('name'), ']', 'Has wiki feature enabled')
