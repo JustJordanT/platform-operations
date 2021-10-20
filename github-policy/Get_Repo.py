@@ -3,7 +3,7 @@ import json
 import pprint
 from secrets import TOKEN
 
-#VARS
+# VARS
 USER = 'justjordant'
 BASE_URL = "https://api.github.com/"
 REPO_URL = f"https://api.github.com/repos/{USER}/JordanBlogSite"
