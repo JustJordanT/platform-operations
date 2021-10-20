@@ -1,7 +1,9 @@
+import datetime
 import json
 import requests
 import pprint
 from secrets import TOKEN
+from dotenv import load_dotenv, find_dotenv
 
 # VARS
 USER = 'justjordant'
@@ -18,18 +20,35 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 # }
 
 
-# headers = {
-#     'Accept': 'token' + TOKEN,
-#     'Authorization': 'token %s' % TOKEN,
-# }
-#
-# repo_info = requests.get(REPOS_URL, headers=headers)
-# r_dict = repo_info.json()
-#
-#
-# # parsed = json.loads(repo_info)
-#
-#
+
+
+headers = {
+    'Accept': 'token' + TOKEN,
+    'Authorization': 'token %s' % TOKEN,
+}
+
+repo_info = requests.get(REPOS_URL, headers=headers)
+r_dict = repo_info.json()
+
+
+# parsed = json.loads(repo_info)
+
+
+def check_wiki ():
+    for repo in r_dict:
+        try:
+            if repo.get('has_wiki'):
+                # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
+                print('[', repo.get('name'), ']', 'Has wiki feature enabled')
+                # with open(f'randomfile.txt', "w") as external_file:
+                #     print(repo_text, file=external_file)
+                #     external_file.close()
+                # print('This is true')
+        except AttributeError:
+            # counters is not a dictionary, ignore and move on
+            pass
+
+
 # def check_wiki ():
 #     for repo in r_dict:
 #         if repo.get('has_wiki'):
@@ -63,6 +82,6 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 # for repo in repos:
 #     print(repo)
 
-check_issues()
+# check_issues()
 
 check_wiki()
