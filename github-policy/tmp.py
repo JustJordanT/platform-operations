@@ -21,6 +21,7 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
 load_dotenv(find_dotenv())
 TOKEN = os.getenv('TOKEN')
+SLACK_HOOK = os.getenv('SLACK_HOOK')
 # print(os.getenv('TOKEN'))
 
 headers = {
@@ -38,8 +39,7 @@ def check_wiki ():
     for repo in r_dict:
         try:
             if repo.get('has_wiki'):
-                # return f'{repo.get("name")} - \' Has wiki feature enabled\''
-                print(f'{repo.get("name")} - \' Has wiki feature enabled\'')
+                return f"{repo.get('name')} -' Has wiki feature enabled\'"
             # print('This is true')
         except AttributeError:
             pass
@@ -58,7 +58,7 @@ def check_wiki ():
 
 
 def slack_test (check_name):
-    url = "https://hooks.slack.com/services/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"
+    url = SLACK_HOOK
     message = check_name
     title = (f"New Incoming Alert :zap:")
     slack_data = {
@@ -100,6 +100,6 @@ def slack_test (check_name):
 
 # check_issues()
 
-check_wiki()
+# check_wiki()
 
-# slack_test(check_wiki())
+slack_test(check_wiki())
