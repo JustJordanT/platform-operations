@@ -28,21 +28,21 @@ headers = {
     'Authorization': 'token %s' % str(TOKEN),
 }
 
-repo_info = requests.get(REPOS_URL, headers=headers)
-r_dict = json.loads(repo_info)
+repo_info = requests.get(REPOS_URL, headers=headers).json()
+r_dict = repo_info
+# xyz = json.loads(r_dict)
 
 
 def check_wiki ():
     for repo in r_dict:
         # try:
-
-        if repo.get("has_wiki"):
-            # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
-            print('[', repo.get('name'), ']', 'Has wiki feature enabled')
-            # print('This is true')
-    # except AttributeError:
+            if repo.get("has_wiki"):
+                # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
+                print('[', repo.get('name'), ']', 'Has wiki feature enabled')
+        # print('This is true')
+        # except AttributeError:
     # counters is not a dictionary, ignore and move on
-    # pass
+    #         pass
 
 
 # def check_issues ():

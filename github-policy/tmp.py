@@ -1,8 +1,8 @@
-import datetime
 import json
+import os
 import requests
-import pprint
-from secrets import TOKEN
+import sys
+# import pprint
 from dotenv import load_dotenv, find_dotenv
 
 # VARS
@@ -19,8 +19,9 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 #     "has_issues": False
 # }
 
-
-
+load_dotenv(find_dotenv())
+TOKEN = os.getenv('TOKEN')
+# print(os.getenv('TOKEN'))
 
 headers = {
     'Accept': 'token' + TOKEN,
@@ -33,40 +34,50 @@ r_dict = repo_info.json()
 
 # parsed = json.loads(repo_info)
 
-
 def check_wiki ():
     for repo in r_dict:
-        try:
-            if repo.get('has_wiki'):
-                # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
-                print('[', repo.get('name'), ']', 'Has wiki feature enabled')
-                # with open(f'randomfile.txt', "w") as external_file:
-                #     print(repo_text, file=external_file)
-                #     external_file.close()
-                # print('This is true')
-        except AttributeError:
-            # counters is not a dictionary, ignore and move on
-            pass
+        if repo.get('has_wiki'):
+            return f"{repo.get('name')} - ' Has wiki feature enabled'"
 
 
-# def check_wiki ():
-#     for repo in r_dict:
-#         if repo.get('has_wiki'):
-#             # print(repo.get('name'), 'Has wiki feature enabled' ,repo.get('has_wiki'))
-#             print('[', repo.get('name'), ']', 'Has wiki feature enabled')
-#             # print('This is true')
-#
-#
-# def check_issues ():
-#     for repo in r_dict:
-#         if repo.get('has_issues'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-#
-#
-# def check_project ():
-#     for repo in r_dict:
-#         if repo.get('has_projects'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
+def check_issues ():
+    for repo in r_dict:
+        if repo.get('has_issues'):
+            print('[', repo.get('name'), ']', 'Has issues feature enabled')
+
+
+def check_project ():
+    for repo in r_dict:
+        if repo.get('has_projects'):
+            print('[', repo.get('name'), ']', 'Has issues feature enabled')
+
+
+def slack_test (check_name):
+    url = "https://hooks.slack.com/services/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"
+    message = check_name
+    title = (f"New Incoming Alert :zap:")
+    slack_data = {
+        "username": "Repo-Alerts",
+        "icon_emoji": "ð",
+        #"channel" : "#somerandomcahnnel",
+        "attachments": [
+            {
+                "color": "#ff0000",
+                "fields": [
+                    {
+                        "title": title,
+                        "value": message,
+                        "short": "false",
+                    }
+                ]
+            }
+        ]
+    }
+    byte_length = str(sys.getsizeof(slack_data))
+    headers = {'Content-Type': "application/json", 'Content-Length': byte_length}
+    response = requests.post(url, data=json.dumps(slack_data), headers=headers)
+    if response.status_code != 200:
+        raise Exception(response.status_code, response.text)
 
 
 # pprint.pprint(repo_info)
@@ -84,4 +95,6 @@ def check_wiki ():
 
 # check_issues()
 
-check_wiki()
+# check_wiki()
+
+slack_test(check_wiki())
