@@ -36,30 +36,35 @@ r_dict = repo_info.json()
 
 def check_wiki ():
     for repo in r_dict:
-        if repo.get('has_wiki'):
-            return f"{repo.get('name')} - ' Has wiki feature enabled'"
+        try:
+            if repo.get('has_wiki'):
+                # return f'{repo.get("name")} - \' Has wiki feature enabled\''
+                print(f'{repo.get("name")} - \' Has wiki feature enabled\'')
+            # print('This is true')
+        except AttributeError:
+            pass
 
 
-def check_issues ():
-    for repo in r_dict:
-        if repo.get('has_issues'):
-            print('[', repo.get('name'), ']', 'Has issues feature enabled')
-
-
-def check_project ():
-    for repo in r_dict:
-        if repo.get('has_projects'):
-            print('[', repo.get('name'), ']', 'Has issues feature enabled')
+# def check_issues ():
+#     for repo in r_dict:
+#         if repo.get('has_issues'):
+#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
+#
+#
+# def check_project ():
+#     for repo in r_dict:
+#         if repo.get('has_projects'):
+#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
 
 
 def slack_test (check_name):
-    url = "https://hooks.slack.com/services/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"
+    url = "https://hooks.slack.com/services/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"
     message = check_name
     title = (f"New Incoming Alert :zap:")
     slack_data = {
         "username": "Repo-Alerts",
-        "icon_emoji": "ð",
-        #"channel" : "#somerandomcahnnel",
+        "icon_emoji": ":car:",
+        # "channel" : "#general",
         "attachments": [
             {
                 "color": "#ff0000",
@@ -95,6 +100,6 @@ def slack_test (check_name):
 
 # check_issues()
 
-# check_wiki()
+check_wiki()
 
-slack_test(check_wiki())
+# slack_test(check_wiki())
