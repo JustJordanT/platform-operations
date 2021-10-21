@@ -21,7 +21,7 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
 load_dotenv()
 # print(os.environ.get("PYTHON_TOKEN"))
-GH_TOKEN = os.environ.get("PYTHON_TOKEN")
+GH_TOKEN = os.environ.get("GH_TOKEN")
 SLACK_HOOK = os.environ.get("SLACK_HOOK")
 
 headers = {

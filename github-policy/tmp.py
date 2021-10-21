@@ -20,13 +20,14 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 # }
 
 load_dotenv(find_dotenv())
-TOKEN = os.getenv('TOKEN')
+GH_TOKEN = os.getenv('GH_TOKEN')
 SLACK_HOOK = os.getenv('SLACK_HOOK')
-# print(os.getenv('TOKEN'))
+print(os.getenv('SLACK_HOOK'))
+
 
 headers = {
-    'Accept': 'token' + TOKEN,
-    'Authorization': 'token %s' % TOKEN,
+    'Accept': 'token' + GH_TOKEN,
+    'Authorization': 'token %s' % GH_TOKEN,
 }
 
 repo_info = requests.get(REPOS_URL, headers=headers)
