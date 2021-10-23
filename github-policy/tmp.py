@@ -8,7 +8,6 @@ from dotenv import load_dotenv, find_dotenv
 # VARS
 USER = 'justjordant'
 BASE_URL = "https://api.github.com/"
-REPO_URL = f"https://api.github.com/repos/{USER}/JordanBlogSite"
 # REPOS_URL = f"{BASE_URL}users/{USER}/repos?per_page=100"
 REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
@@ -22,7 +21,7 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 load_dotenv(find_dotenv())
 GH_TOKEN = os.getenv('GH_TOKEN')
 SLACK_HOOK = os.getenv('SLACK_HOOK')
-print(os.getenv('SLACK_HOOK'))
+# print(os.getenv('SLACK_HOOK'))
 
 
 headers = {
@@ -31,19 +30,29 @@ headers = {
 }
 
 repo_info = requests.get(REPOS_URL, headers=headers)
-r_dict = repo_info.json()
+repositories = repo_info.json()
 
 
-# parsed = json.loads(repo_info)
+def check_repo (repo):
+    repo_failures = []
+    if repo.get('has_wiki'):
+        # print(repo.get('has_wiki'))
+        repo_failures.append('has_wiki')
+    return repo_failures
 
-def check_wiki ():
-    for repo in r_dict:
-        try:
-            if repo.get('has_wiki'):
-                return f"{repo.get('name')} -' Has wiki feature enabled\'"
-            # print('This is true')
-        except AttributeError:
-            pass
+
+for repo in repositories:
+    failures = check_repo(repo)
+    if failures:
+        print(failures)
+        # (f"{repo.get('name')} -' Has wiki feature enabled'")
+
+
+# def check_wiki ():
+#     return blob
+#             # print('This is true')
+#         except AttributeError:
+#             pass
 
 
 # def check_issues ():
@@ -56,6 +65,7 @@ def check_wiki ():
 #     for repo in r_dict:
 #         if repo.get('has_projects'):
 #             print('[', repo.get('name'), ']', 'Has issues feature enabled')
+
 
 
 def slack_test (check_name):
@@ -103,4 +113,5 @@ def slack_test (check_name):
 
 # check_wiki()
 
-slack_test(check_wiki())
+slack_test(check_repo(repo))
+
