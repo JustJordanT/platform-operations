@@ -9,25 +9,19 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-#      - name: Make Directory
-#        run:  |
-#          cd github-policy
-#          mkdir reports
-#          echo 'COMPLETED'
-
       - name: Pip Install
         run: |
           cd github-policy
           pip install -r requirements.txt
 
       - name: Run Script
+        run: |
+          cd github-policy
+          python main.py
         env:
           TOKEN: ${{ secrets.GH_TOKEN }}
           SLACK_HOOK: ${{secrets.SLACK_HOOK}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          cd github-policy
-          python main.py
 
 #      - name: Upload Artifact
 #        uses: actions/upload-artifact@v2
