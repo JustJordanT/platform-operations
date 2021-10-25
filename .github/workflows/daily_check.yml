@@ -22,7 +22,8 @@ jobs:
 
       - name: Run Script
         env:
-          TOKEN: ${{ secrets.PYTHON_TOKEN }}
+          TOKEN: ${{ secrets.GH_TOKEN }}
+          SLACK_HOOK: ${{secrets.SLACK_HOOK}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           cd github-policy

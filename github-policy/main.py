@@ -8,7 +8,6 @@ from dotenv import load_dotenv, find_dotenv
 # VARS
 USER = 'justjordant'
 BASE_URL = "https://api.github.com/"
-REPO_URL = f"https://api.github.com/repos/{USER}/JordanBlogSite"
 # REPOS_URL = f"{BASE_URL}users/{USER}/repos?per_page=100"
 REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 
@@ -20,9 +19,9 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 # }
 
 load_dotenv()
-# print(os.environ.get("PYTHON_TOKEN"))
-GH_TOKEN = os.environ.get("GH_TOKEN")
-SLACK_HOOK = os.environ.get("SLACK_HOOK")
+GH_TOKEN = os.environ('GH_TOKEN')
+SLACK_HOOK = os.environ('SLACK_HOOK')
+
 
 headers = {
     'Accept': 'token' + GH_TOKEN,
@@ -30,36 +29,12 @@ headers = {
 }
 
 repo_info = requests.get(REPOS_URL, headers=headers)
-r_dict = repo_info.json()
+repositories = repo_info.json()
 
 
-# parsed = json.loads(repo_info)
-
-def check_wiki ():
-    for repo in r_dict:
-        try:
-            if repo.get('has_wiki'):
-                return f"{repo.get('name')} -' Has wiki feature enabled\'"
-            # print('This is true')
-        except AttributeError:
-            pass
-
-
-# def check_issues ():
-#     for repo in r_dict:
-#         if repo.get('has_issues'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-#
-#
-# def check_project ():
-#     for repo in r_dict:
-#         if repo.get('has_projects'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-
-
-def slack_test (check_name):
+def slack_test ():
     url = SLACK_HOOK
-    message = check_name
+    message = f"{failures}"
     title = (f"New Incoming Alert :zap:")
     slack_data = {
         "username": "Repo-Alerts",
@@ -84,22 +59,44 @@ def slack_test (check_name):
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)
 
+def check_repo (repo):
+    repo_failures = []
+    if repo.get('has_wiki'):
+        # print(repo.get('has_wiki'))
+        repo_failures.append(repo.get('has_wiki'))
+    return repo_failures
 
-# pprint.pprint(repo_info)
-# repos = [r]
-# repos = r.json()
 
-# for repo in repo_info:
-#     for attribute,value in repo.iteritems():
-#         print(attribute,value)
+for repo in repositories:
+    failures = check_repo(repo)
+    if failures:
+        print(failures)
+        slack_test()
+        # (f"{repo.get('name')} -' Has wiki feature enabled'")
 
-# repos["private"]
 
-# for repo in repos:
-#     print(repo)
+# def check_wiki ():
+#     return blob
+#             # print('This is true')
+#         except AttributeError:
+#             pass
 
-# check_issues()
 
-# check_wiki()
+# def check_issues ():
+#     for repo in r_dict:
+#         if repo.get('has_issues'):
+#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
+#
+#
+# def check_project ():
+#     for repo in r_dict:
+#         if repo.get('has_projects'):
+#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
 
-slack_test(check_wiki())
+
+
+
+
+
+
+
