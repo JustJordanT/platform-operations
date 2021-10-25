@@ -19,7 +19,7 @@ jobs:
           cd github-policy
           python main.py
         env:
-          TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
           SLACK_HOOK: ${{secrets.SLACK_HOOK}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
