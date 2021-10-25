@@ -18,10 +18,9 @@ REPOS_URL = f"{BASE_URL}users/{USER}/repos"
 #     "has_issues": False
 # }
 
-load_dotenv()
-GH_TOKEN = os.environ('GH_TOKEN')
-SLACK_HOOK = os.environ('SLACK_HOOK')
-
+load_dotenv(find_dotenv())
+GH_TOKEN = os.getenv('GH_TOKEN')
+SLACK_HOOK = os.getenv('SLACK_HOOK')
 
 headers = {
     'Accept': 'token' + GH_TOKEN,
