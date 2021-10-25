@@ -15,13 +15,14 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Script
-        run: |
-          cd github-policy
-          python main.py
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
           SLACK_HOOK: ${{secrets.SLACK_HOOK}}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd github-policy
+          python main.py
+
 
 #      - name: Upload Artifact
 #        uses: actions/upload-artifact@v2
