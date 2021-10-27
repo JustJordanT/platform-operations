@@ -6,31 +6,23 @@ import sys
 from dotenv import load_dotenv, find_dotenv
 
 # VARS
-USER = 'justjordant'
-BASE_URL = "https://api.github.com/"
-# REPOS_URL = f"{BASE_URL}users/{USER}/repos?per_page=100"
-REPOS_URL = f"{BASE_URL}users/{USER}/repos"
+org = 'Basis-Theory'
+API_URL = "https://api.github.com/"
 
-# jada = {
-#     "name": "mix123456",
-#     "has_wiki": True,
-#     "has_projects": False,
-#     "has_issues": False
-# }
-
+# LOAD SECRETS
 load_dotenv(find_dotenv())
 GH_TOKEN = os.getenv('GH_TOKEN')
 SLACK_HOOK = os.getenv('SLACK_HOOK')
-# print(os.getenv('SLACK_HOOK'))
 
-
+authorization = f'token {GH_TOKEN}'
 headers = {
-    'Accept': 'token' + GH_TOKEN,
-    'Authorization': 'token %s' % GH_TOKEN,
+    "Accept": "application/vnd.github.v3+json",
+    "Authorization": authorization,
 }
 
-repo_info = requests.get(REPOS_URL, headers=headers)
+repo_info = requests.get(f"{API_URL}/orgs/{org}/repos", headers=headers)
 repositories = repo_info.json()
+
 
 def slack_test ():
     url = SLACK_HOOK
@@ -39,7 +31,7 @@ def slack_test ():
     slack_data = {
         "username": "Repo-Alerts",
         "icon_emoji": ":car:",
-        # "channel" : "#general",
+        "channel": "#ID",
         "attachments": [
             {
                 "color": "#ff0000",
@@ -59,44 +51,38 @@ def slack_test ():
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)
 
-def check_repo (repo):
-    repo_failures = []
-    if repo.get('has_wiki'):
-        # print(repo.get('has_wiki'))
-        repo_failures.append(repo.get('has_wiki'))
-    return repo_failures
+
+def check_repo(repo):
+    repo_out_of_compliance = []
+    # try:
+    #     if repo.get("visibility") == "private":
+    # print(repo_out_of_compliance)
+    data = {
+                "default_branch": 'master',
+                "has_wiki": True,
+                # "has_projects": True,
+                "has_issues": False,
+                "delete_branch_on_merge": True,
+                "has_downloads": False,
+                "has_issues": False,
+                "has_wiki": False,
+                # "VulnerabilityAlerts": True,
+                }
+    requests.patch(f"{API_URL}repos/basis-theory/{repo}/", headers=headers, json=data)
+    repo_out_of_compliance.append(repo)
+    return repo_out_of_compliance
+    # except AttributeError:
+    #     pass
+
+        # requests.patch(REPOS_URL, headers=headers, json=data)
+        # requests.patch(REPOS_URL, headers=headers, json=data)
 
 
-for repo in repositories:
+
+repo_list = ['basistheory-private-test-1', 'basistheory-private-test-2']
+
+for repo in repo_list:
     failures = check_repo(repo)
-    if failures:
-        print(failures)
-        slack_test()
-        # (f"{repo.get('name')} -' Has wiki feature enabled'")
-
-
-# def check_wiki ():
-#     return blob
-#             # print('This is true')
-#         except AttributeError:
-#             pass
-
-
-# def check_issues ():
-#     for repo in r_dict:
-#         if repo.get('has_issues'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-#
-#
-# def check_project ():
-#     for repo in r_dict:
-#         if repo.get('has_projects'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-
-
-
-
-
-
-
-
+    # if failures:
+    print(failures)
+        # slack_test()

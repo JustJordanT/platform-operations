@@ -58,6 +58,7 @@ def slack_test ():
     if response.status_code != 200:
         raise Exception(response.status_code, response.text)
 
+
 def check_repo (repo):
     repo_failures = []
     if repo.get('has_wiki'):
@@ -72,30 +73,3 @@ for repo in repositories:
         print(failures)
         slack_test()
         # (f"{repo.get('name')} -' Has wiki feature enabled'")
-
-
-# def check_wiki ():
-#     return blob
-#             # print('This is true')
-#         except AttributeError:
-#             pass
-
-
-# def check_issues ():
-#     for repo in r_dict:
-#         if repo.get('has_issues'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-#
-#
-# def check_project ():
-#     for repo in r_dict:
-#         if repo.get('has_projects'):
-#             print('[', repo.get('name'), ']', 'Has issues feature enabled')
-
-
-
-
-
-
-
-

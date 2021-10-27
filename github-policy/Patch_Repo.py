@@ -1,26 +1,37 @@
 import requests
-# import json
 import pprint
-from secrets import TOKEN
+import os
+from dotenv import load_dotenv, find_dotenv
+import json
+import sys
+
+load_dotenv(find_dotenv())
+GH_TOKEN = os.getenv('GH_TOKEN')
+SLACK_HOOK = os.getenv('SLACK_HOOK')
 
 
-def patch_repo(repo_name):
+# print(os.getenv('SLACK_HOOK'))
+
+
+def patch_repo ():
     # VARS
     USER = 'justjordant'
     BASE_URL = "https://api.github.com/"
     # REPO_URL = f"https://api.github.com/repos/{USER}/JordanBlogSite"
-    REPOS_URL = f"{BASE_URL}repos/{USER}/{repo_name}"
+    # REPOS_URL = f"{BASE_URL}repos/{USER}/{repo_name}"
+    REPOS_URL = f"{BASE_URL}repos/{USER}/repos"
 
     jada = {
-        # "name": {,
         "has_wiki": True,
-        # "has_projects": False,
-        # "has_issues": False
+        "has_projects": True,
+        "has_issues": True,
+        "ArchiveOnDestroy": True,
+
     }
 
     headers = {
-        'Accept': 'token' + TOKEN,
-        'Authorization': 'token %s' % TOKEN,
+        'Accept': 'access_token' + GH_TOKEN,
+        'Authorization': 'token %s' % GH_TOKEN,
     }
 
     repo_info = requests.patch(REPOS_URL, headers=headers, json=jada)
@@ -30,4 +41,6 @@ def patch_repo(repo_name):
 
     # pprint.pprint(repo_info)
     pprint.pprint(r)
-patch_repo('platform-operations')
+
+
+patch_repo()

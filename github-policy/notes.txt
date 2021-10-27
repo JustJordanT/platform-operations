@@ -1,0 +1,34 @@
+         ArchiveOnDestroy = true,
+         DeleteBranchOnMerge = true,
+         HasDownloads = false,
+         HasIssues = false,
+         HasWiki = false,
+         VulnerabilityAlerts = true,
+
+
+
+
+ new BranchProtection($"{name}-branch-protection", new BranchProtectionArgs
+            {
+                RepositoryId = repo.NodeId,
+                Pattern = args.DefaultBranch,
+                EnforceAdmins = false,
+                AllowsDeletions = true,
+                RequiredStatusChecks =
+                {
+                    new BranchProtectionRequiredStatusCheckArgs
+                    {
+                        Strict = false,
+                    },
+                },
+                RequiredPullRequestReviews =
+                {
+                    new BranchProtectionRequiredPullRequestReviewArgs
+                    {
+                        DismissStaleReviews = true,
+                        RequireCodeOwnerReviews = true,
+                        RequiredApprovingReviewCount = 1
+                    },
+                },
+            });
+        }
